@@ -1,0 +1,15 @@
+import {Router} from 'express';
+import auth from '../middleware/auth.js';
+import {register,login,me,updateMe} from '../controllers/authController.js';
+import * as c from '../controllers/coreController.js';
+const r=Router();
+r.post('/auth/register',register);r.post('/auth/login',login);
+r.get('/auth/me',auth,me);r.put('/auth/me',auth,updateMe);
+r.get('/skills',auth,c.listSkills);r.post('/skills',auth,c.createSkill);r.get('/skills/:id',auth,c.getSkill);r.put('/skills/:id',auth,c.updateSkill);r.delete('/skills/:id',auth,c.deleteSkill);
+r.get('/matches',auth,c.matches);
+r.get('/exchanges',auth,c.listExchanges);r.post('/exchanges',auth,c.createExchange);r.patch('/exchanges/:id',auth,c.updateExchange);
+r.get('/messages/:exchangeId',auth,c.listMessages);r.post('/messages/:exchangeId',auth,c.sendMessage);
+r.get('/sessions',auth,c.listSessions);r.post('/sessions',auth,c.createSession);r.patch('/sessions/:id',auth,c.updateSession);
+r.post('/ratings',auth,c.createRating);r.get('/ratings',auth,c.listRatings);
+r.get('/notifications',auth,c.listNotifications);r.patch('/notifications/:id/read',auth,c.readNotification);
+export default r;
